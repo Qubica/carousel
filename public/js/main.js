@@ -2,6 +2,12 @@ var Application = Backbone.View.extend({
 
 	el: '.application',
 
+	events: {
+		'touchstart' : '_touchStartHandler',
+        'touchmove' : '_touchMoveHandler',
+        'touchend' : '_touchEndHandler'
+	},
+
 	initialize: function() {
 
 		_.bindAll(
@@ -21,6 +27,10 @@ var Application = Backbone.View.extend({
 		});
 
 		this._setupEventListener();
+
+		this._throwObj = {
+			cur: 0
+		};
 
 		// setup animations
 		// 0 - 0.5 is in animation
@@ -110,6 +120,43 @@ var Application = Backbone.View.extend({
   		}
 
 	},
+
+	_throw: function () {
+
+		if(this._throwObj.x === null) return;
+
+        var deltaX = this._throwObj.x - this._throwObj.prevX;
+
+		this._throwObj.prevX = this._throwObj.x;
+        if(isNaN(deltaX)) return;
+
+        TweenMax.to(this._carousel, 0.7, {throwProps:{index:{velocity:-deltaX}}});
+
+    },
+
+	_touchStartHandler: function(e) {
+
+		this._throwObj.x = (e.originalEvent.touches[0].clientX / 10);
+		this._throwObj.prevX = (e.originalEvent.touches[0].clientX / 10);
+
+	},
+
+	_touchMoveHandler: function(e) {
+		
+		e.preventDefault();
+
+		this._throwObj.x = (e.originalEvent.touches[0].clientX / 10);
+
+        this._throw();
+
+	},
+
+	_touchEndHandler: function(e) {
+		
+		this._throwObj.x = null;
+
+	}
+
 
 });
 
