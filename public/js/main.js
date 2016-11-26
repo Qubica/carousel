@@ -23,15 +23,15 @@ var Application = Backbone.View.extend({
 
 		// setup animations
 		// 0 - 0.5 is in animation
-		// 0.5 - 1 is out animation
+		// 0.5 - 1 is out animations
 
 		this._slides = [];
 		var timeline;
 		for(var i=0; i<elCarouselItems.length; i++) {
 			timeline = new TimelineMax({paused:true});
-			timeline.from(elCarouselItems[i], 0.5, {x:400, ease:Power1.easeOut}, 0);
+			timeline.from(elCarouselItems[i], 0.5, {x:400, ease:Power0.easeNone}, 0);
 			timeline.fromTo(elCarouselItems[i], 0.5, {alpha:0}, {alpha:1, yoyo:true, repeat:1, ease:Power1.easeIn}, 0);
-			timeline.to(elCarouselItems[i], 0.5, {x:-400, ease:Power1.easeIn}, 0.5);
+			timeline.to(elCarouselItems[i], 0.5, {x:-400, ease:Power0.easeNone}, 0.5);
 
 			this._slides.push(timeline);
 		}

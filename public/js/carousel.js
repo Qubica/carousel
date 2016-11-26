@@ -4,7 +4,7 @@
 var Carousel = Backbone.View.extend({
 
     _activeIndex: 0,
-    _tweenDuration: 1,
+    _tweenDuration: 0.6,
 
     initialize: function(options) {
 
@@ -95,25 +95,65 @@ var Carousel = Backbone.View.extend({
 
     },
 
+    // _updateIndex: function(index) {
+
+    //     // TODO: improve
+    //     // with this solution only 1 slide can animate, never 2 at the same time
+
+    //     var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
+    //     var progress = this._modulo(this._tweenObj.cur, this._numItems);
+
+    //     var indexProgress;
+    //     if(activeIndex < index) {
+    //         indexProgress = (activeIndex === 0) ? 0.5 : -0.5;
+    //     }
+    //     else if(activeIndex === index) {
+    //         indexProgress = (progress > this._numItems-1 && index === 0) ? -(index-progress)-this._numItems : -(index-progress);
+    //     }
+    //     else if(activeIndex > index) {
+    //         indexProgress = (activeIndex === this._numItems-1) ? -0.5 : 0.5;
+    //     }
+    //     indexProgress = indexProgress + 0.5;
+        
+    //     this.trigger('index:progress', {index:index, progress:indexProgress});
+
+    // },
+
     _updateIndex: function(index) {
 
         // TODO: improve
 
+        var floorIndex = this._modulo(Math.floor(this._tweenObj.cur), this._numItems);
         var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
         var progress = this._modulo(this._tweenObj.cur, this._numItems);
 
         var indexProgress;
-        if(activeIndex < index) {
-            indexProgress = (activeIndex === 0) ? 0.5 : -0.5;
+        if(index <= 1) {
+            if(progress >= this._numItems-1){
+                indexProgress = progress-this._numItems;
+            }
+            else if(progress <= index+1) {
+                indexProgress = progress;
+            }            
         }
-        else if(activeIndex === index) {
-            indexProgress = (progress > this._numItems-1 && index === 0) ? -(index-progress)-this._numItems : -(index-progress);
+        else if(index >= this._numItems-1) {
+            if(progress <= 1){
+                indexProgress = progress+this._numItems;
+            }
+            else if(progress >= this._numItems-2) {
+                indexProgress = progress;
+            }
         }
-        else if(activeIndex > index) {
-            indexProgress = (activeIndex === this._numItems-1) ? -0.5 : 0.5;
+        else if(index >= progress-1 && index <= progress+1) {
+            indexProgress = progress;
         }
-        indexProgress = indexProgress + 0.5;
         
+        indexProgress = indexProgress - index;
+
+        indexProgress = (indexProgress+1) / 2; 
+
+        if(isNaN(indexProgress)) indexProgress = 1;
+
         this.trigger('index:progress', {index:index, progress:indexProgress});
 
     },
