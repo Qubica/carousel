@@ -40,9 +40,9 @@ var Application = Backbone.View.extend({
 		var timeline;
 		for(var i=0; i<elCarouselItems.length; i++) {
 			timeline = new TimelineMax({paused:true});
-			timeline.fromTo(elCarouselItems[i], 0.5, {y:400}, {y:0, ease:Power0.easeNone}, 0);
+			timeline.fromTo(elCarouselItems[i], 0.5, {y:100, rotation:-10}, {y:0, rotation:0, ease:Power0.easeNone}, 0);
 			timeline.fromTo(elCarouselItems[i], 0.5, {alpha:0}, {alpha:1, yoyo:true, repeat:1, ease:Power1.easeIn}, 0);
-			timeline.fromTo(elCarouselItems[i], 0.5, {x:0}, {x:-400, ease:Power0.easeNone}, 0.5);
+			timeline.fromTo(elCarouselItems[i], 0.5, {x:0, rotation:0}, {x:-400, rotation:10, ease:Power0.easeNone}, 0.5);
 
 			this._slides.push(timeline);
 		}
@@ -126,11 +126,10 @@ var Application = Backbone.View.extend({
 		if(this._throwObj.x === null) return;
 
         var deltaX = this._throwObj.x - this._throwObj.prevX;
-
 		this._throwObj.prevX = this._throwObj.x;
+        
         if(isNaN(deltaX)) return;
-
-        TweenMax.to(this._carousel, 0.7, {throwProps:{index:{velocity:-deltaX}}});
+        TweenMax.to(this._carousel, 0.7, {throwProps:{index:{velocity:-deltaX, end:function(n) { return Math.round(n); } }}});
 
     },
 

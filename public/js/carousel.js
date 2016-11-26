@@ -28,7 +28,6 @@ var Carousel = Backbone.View.extend({
         if(index === undefined || index === null) {
             return this._index || 0;
         }
-        this._index = index;
 
         this._setIndex(index);
 
@@ -86,15 +85,14 @@ var Carousel = Backbone.View.extend({
 
     _setIndex: function(index) {
 
-        index = this._short(this._tweenObj.cur, index, this._numItems);
-        this._tweenObj.cur = index;
+        this._tweenObj.cur = this._short(this._tweenObj.cur, index, this._numItems);
         this._update();
-
-        this._index = index;
 
     },
 
     _update: function() {
+
+        this._index = this._tweenObj.cur;
 
         this._updateIndexes();
         this._updateActiveIndex();
