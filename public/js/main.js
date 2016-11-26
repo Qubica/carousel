@@ -16,7 +16,8 @@ var Application = Backbone.View.extend({
 
 		this._carousel = new Carousel({
 			el: elCarousel,
-			numItems: elCarouselItems.length
+			numItems: elCarouselItems.length,
+			concurrent: true
 		});
 
 		this._setupEventListener();

@@ -15,6 +15,7 @@ var Carousel = Backbone.View.extend({
 
         this._el = options.el;
         this._numItems = options.numItems;
+        this._concurrent = options.concurrent;
 
         this._tweenObj = {
             cur: 0
@@ -90,36 +91,40 @@ var Carousel = Backbone.View.extend({
     _updateIndexes: function() {
 
         for(var index = 0; index < this._numItems; index++) {
-            this._updateIndex(index);
+            if(this._concurrent) {
+                this._updateIndexConcurrent(index);
+            }
+            else {
+                this._updateIndex(index);
+            }
         }
 
     },
 
-    // _updateIndex: function(index) {
-
-    //     // TODO: improve
-    //     // with this solution only 1 slide can animate, never 2 at the same time
-
-    //     var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
-    //     var progress = this._modulo(this._tweenObj.cur, this._numItems);
-
-    //     var indexProgress;
-    //     if(activeIndex < index) {
-    //         indexProgress = (activeIndex === 0) ? 0.5 : -0.5;
-    //     }
-    //     else if(activeIndex === index) {
-    //         indexProgress = (progress > this._numItems-1 && index === 0) ? -(index-progress)-this._numItems : -(index-progress);
-    //     }
-    //     else if(activeIndex > index) {
-    //         indexProgress = (activeIndex === this._numItems-1) ? -0.5 : 0.5;
-    //     }
-    //     indexProgress = indexProgress + 0.5;
-        
-    //     this.trigger('index:progress', {index:index, progress:indexProgress});
-
-    // },
-
     _updateIndex: function(index) {
+
+        // TODO: improve
+
+        var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
+        var progress = this._modulo(this._tweenObj.cur, this._numItems);
+
+        var indexProgress;
+        if(activeIndex < index) {
+            indexProgress = (activeIndex === 0) ? 0.5 : -0.5;
+        }
+        else if(activeIndex === index) {
+            indexProgress = (progress > this._numItems-1 && index === 0) ? -(index-progress)-this._numItems : -(index-progress);
+        }
+        else if(activeIndex > index) {
+            indexProgress = (activeIndex === this._numItems-1) ? -0.5 : 0.5;
+        }
+        indexProgress = indexProgress + 0.5;
+        
+        this.trigger('index:progress', {index:index, progress:indexProgress});
+
+    },
+
+    _updateIndexConcurrent: function(index) {
 
         // TODO: improve
 
@@ -149,7 +154,6 @@ var Carousel = Backbone.View.extend({
         }
         
         indexProgress = indexProgress - index;
-
         indexProgress = (indexProgress+1) / 2; 
 
         if(isNaN(indexProgress)) indexProgress = 1;
