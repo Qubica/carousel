@@ -1,0 +1,17 @@
+.carousel {
+    display: block;
+    position: relative;
+    width: 400px;
+    height: 300px;
+
+    border: 1px solid #eee;
+}
+
+.carousel__item {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 300px;
+}
