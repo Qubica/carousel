@@ -20,6 +20,8 @@ var Application = Backbone.View.extend({
 			'_keydownHandler'
 		);
 
+		// setup carousel
+
 		var elCarousel = this.el.querySelector('.js-carousel');
 		var elCarouselItems = this.el.querySelectorAll('.js-carousel-item');
 
@@ -28,16 +30,6 @@ var Application = Backbone.View.extend({
 			numItems: elCarouselItems.length,
 			concurrent: true
 		});
-
-		this._setupEventListener();
-
-		this._throwObj = {
-			cur: 0
-		};
-
-		// setup animations
-		// 0 - 0.5 is in animation
-		// 0.5 - 1 is out animations
 
 		this._slides = [];
 		var timeline;
@@ -51,6 +43,11 @@ var Application = Backbone.View.extend({
 		}
 
 		this._carousel.setIndex(0);
+
+		// event stuff
+
+		this._throwObj = { cur:0 };
+		this._setupEventListener();
 
 	},
 
@@ -74,6 +71,8 @@ var Application = Backbone.View.extend({
 		this._slides[e.index].progress(e.progress);
 
 	},
+
+	// input stuff for testing
 
 	_keydownHandler: function(e) {
 
@@ -191,3 +190,4 @@ var Application = Backbone.View.extend({
 });
 
 var application = new Application();
+
