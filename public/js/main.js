@@ -36,6 +36,8 @@ var Application = Backbone.View.extend({
 			this._slides.push(timeline);
 		}
 
+		this._carousel.setIndex(0);
+
 	},
 
 	_setupEventListener: function() {
@@ -66,6 +68,44 @@ var Application = Backbone.View.extend({
   		}
   		else if(e.keyCode == 39) {
 			this._carousel.tweenToNextIndex();
+  		}
+
+  		// 1
+  		if(e.keyCode == 48) {
+			this._carousel.setIndex(0);
+  		}
+  		// 2
+  		if(e.keyCode == 49) {
+			this._carousel.setIndex(1);
+  		}
+  		// 3
+  		if(e.keyCode == 50) {
+			this._carousel.setIndex(2);
+  		}
+  		// 4
+  		if(e.keyCode == 51) {
+			this._carousel.setIndex(3);
+  		}
+
+  		// 5
+  		if(e.keyCode == 52) {
+			this._carousel.setIndex(1.2);
+  		}
+  		// 6
+  		if(e.keyCode == 53) {
+			this._carousel.setIndex(1.4);
+  		}
+  		// 7
+  		if(e.keyCode == 54) {
+			this._carousel.setIndex(1.6);
+  		}
+  		// 8
+  		if(e.keyCode == 55) {
+			this._carousel.setIndex(1.8);
+  		}
+  		// 9
+  		if(e.keyCode == 56) {
+			this._carousel.setIndex(2);
   		}
 
 	},

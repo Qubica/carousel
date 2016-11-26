@@ -18,7 +18,13 @@ var Carousel = Backbone.View.extend({
 
         this._tweenObj = {
             cur: 0
-        };
+        }; 
+
+    },
+
+    setIndex: function(index) {
+
+        this._setIndex(index);
 
     },
 
@@ -66,6 +72,21 @@ var Carousel = Backbone.View.extend({
 
     },
 
+    _setIndex: function(index) {
+
+        index = this._short(this._tweenObj.cur, index, this._numItems);
+        this._tweenObj.cur = index;
+        this._update();
+
+    },
+
+    _update: function() {
+
+        this._updateIndexes();
+        this._updateActiveIndex();
+
+    },
+
     _updateIndexes: function() {
 
         for(var index = 0; index < this._numItems; index++) {
@@ -75,6 +96,8 @@ var Carousel = Backbone.View.extend({
     },
 
     _updateIndex: function(index) {
+
+        // TODO: improve
 
         var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
         var progress = this._modulo(this._tweenObj.cur, this._numItems);
@@ -108,8 +131,7 @@ var Carousel = Backbone.View.extend({
 
     _tweenToUpdateHandler: function() {
 
-        this._updateIndexes();
-        this._updateActiveIndex();
+        this._update();
 
     },
 
