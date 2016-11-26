@@ -56,7 +56,7 @@ var Carousel = Backbone.View.extend({
 
         duration = (isNaN(duration)) ? this._tweenDuration : duration;
 
-        ease = ease || Power1.easeInOut;
+        ease = ease || Power0.easeNone;
 
         TweenMax.to(this._tweenObj, duration, {
             cur: index,
@@ -66,11 +66,61 @@ var Carousel = Backbone.View.extend({
 
     },
 
+    _updateIndexes: function() {
+
+        for(var index = 0; index < this._numItems; index++) {
+            this._updateIndex(index);
+        }
+
+    },
+
+    _updateIndex: function(index) {
+
+        // TODO cleanup
+
+        var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
+        var progress = this._modulo(this._tweenObj.cur, this._numItems);
+
+        var indexProgress;
+
+        if(activeIndex < index) {
+            if(activeIndex === 0) {
+                indexProgress = 0.5;
+            }
+            else {
+                indexProgress = -0.5;
+            }
+        }
+        else if(activeIndex === index) {
+            if(progress > this._numItems-1 && index === 0) {
+                indexProgress = -(index-progress)-this._numItems;
+            }
+            else {
+                indexProgress = -(index-progress);
+            }
+        }
+        else if(activeIndex > index) {
+            if(activeIndex === this._numItems-1) {
+                indexProgress = -0.5;
+            }
+            else {
+                indexProgress = 0.5;
+            }
+        }
+
+        indexProgress = indexProgress*2;
+        
+        // if(this._tweenObj.cur < 0) {
+        //     indexProgress = indexProgress * -1;
+        // }
+
+        this.trigger('index:progress', {index:index, progress:indexProgress});
+
+    },
+
     _updateActiveIndex: function() {
 
         var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
-        
-        // console.log(activeIndex, this._tweenObj.cur);
 
         if(activeIndex !== this._activeIndex) {
             this._activeIndex = Math.min(Math.max(activeIndex, 0), this._numItems);
@@ -81,6 +131,7 @@ var Carousel = Backbone.View.extend({
 
     _tweenToUpdateHandler: function() {
 
+        this._updateIndexes();
         this._updateActiveIndex();
 
     },
