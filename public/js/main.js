@@ -7,7 +7,8 @@ var Application = Backbone.View.extend({
 		_.bindAll(
 			this,
 			'_indexProgressHandler',
-			'_indexActiveHandler'
+			'_indexActiveHandler',
+			'_keydownHandler'
 		);
 
 		var elCarousel = this.el.querySelector('.js-carousel');
@@ -18,14 +19,11 @@ var Application = Backbone.View.extend({
 			numItems: elCarouselItems.length
 		});
 
-		// auto play
-		setInterval(function() {
-			this._carousel.tweenToNextIndex();
-		}.bind(this), 1500);
-
 		this._setupEventListener();
 
 		// setup animations
+		// 0 - 0.5 is in animation
+		// 0.5 - 1 is out animation
 
 		this._slides = [];
 		var timeline;
@@ -45,17 +43,30 @@ var Application = Backbone.View.extend({
 		this.listenTo(this._carousel, 'index:active', this._indexActiveHandler);
 		this.listenTo(this._carousel, 'index:progress', this._indexProgressHandler);
 
+		window.addEventListener('keydown', this._keydownHandler);  			
+
 	},
 
 	_indexActiveHandler: function(e) {
 
-		console.log('active', e.index);
+		// console.log('active', e.index);
 
 	},
 
 	_indexProgressHandler: function(e) {
 
 		this._slides[e.index].progress(e.progress);
+
+	},
+
+	_keydownHandler: function(e) {
+
+		if(e.keyCode == 37) {
+			this._carousel.tweenToPreviousIndex();
+  		}
+  		else if(e.keyCode == 39) {
+			this._carousel.tweenToNextIndex();
+  		}
 
 	},
 
