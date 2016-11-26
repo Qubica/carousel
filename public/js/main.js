@@ -30,9 +30,9 @@ var Application = Backbone.View.extend({
 		var timeline;
 		for(var i=0; i<elCarouselItems.length; i++) {
 			timeline = new TimelineMax({paused:true});
-			timeline.from(elCarouselItems[i], 0.5, {x:400, ease:Power0.easeNone}, 0);
+			timeline.fromTo(elCarouselItems[i], 0.5, {y:400}, {y:0, ease:Power0.easeNone}, 0);
 			timeline.fromTo(elCarouselItems[i], 0.5, {alpha:0}, {alpha:1, yoyo:true, repeat:1, ease:Power1.easeIn}, 0);
-			timeline.to(elCarouselItems[i], 0.5, {x:-400, ease:Power0.easeNone}, 0.5);
+			timeline.fromTo(elCarouselItems[i], 0.5, {x:0}, {x:-400, ease:Power0.easeNone}, 0.5);
 
 			this._slides.push(timeline);
 		}
@@ -65,10 +65,10 @@ var Application = Backbone.View.extend({
 	_keydownHandler: function(e) {
 
 		if(e.keyCode == 37) {
-			this._carousel.tweenToPreviousIndex();
+			this._carousel.tweenToPreviousIndex(0.5);
   		}
   		else if(e.keyCode == 39) {
-			this._carousel.tweenToNextIndex();
+			this._carousel.tweenToNextIndex(0.5);
   		}
 
   		// 1

@@ -180,7 +180,6 @@ var Carousel = Backbone.View.extend({
     },
 
     _short: function(start, end, cap) {
-        // calculate shortest distance (use positive values)
 
         var dif = end - start;
 
@@ -194,7 +193,6 @@ var Carousel = Backbone.View.extend({
     },
 
     _modulo: function(n, m) {
-        // negative modulo fix
 
         return ((n % m) + m) % m;
 
