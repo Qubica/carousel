@@ -3,9 +3,12 @@ var Application = Backbone.View.extend({
 	el: '.application',
 
 	events: {
-		'touchstart' : '_touchStartHandler',
-        'touchmove' : '_touchMoveHandler',
-        'touchend' : '_touchEndHandler'
+		'mousedown' : '_mousedownHandler',
+        'mousemove' : '_mousemoveHandler',
+        'mouseup' : '_mouseupHandler',
+		'touchstart' : '_touchstartHandler',
+        'touchmove' : '_touchmoveHandler',
+        'touchend' : '_touchendHandler'
 	},
 
 	initialize: function() {
@@ -133,14 +136,42 @@ var Application = Backbone.View.extend({
 
     },
 
-	_touchStartHandler: function(e) {
+	_mousedownHandler: function(e) {
+
+		this._mousedown = true;
+		this._throwObj.x = (e.clientX / 10);
+		this._throwObj.prevX = (e.clientX / 10);
+
+	},
+
+	_mousemoveHandler: function(e) {
+		
+		e.preventDefault();
+
+		if(!this._mousedown) return;
+
+		this._throwObj.x = (e.clientX / 10);
+
+        this._throw();
+
+	},
+
+	_mouseupHandler: function(e) {
+		
+		this._mousedown = false;
+
+		this._throwObj.x = null;
+
+	},
+
+	_touchstartHandler: function(e) {
 
 		this._throwObj.x = (e.originalEvent.touches[0].clientX / 10);
 		this._throwObj.prevX = (e.originalEvent.touches[0].clientX / 10);
 
 	},
 
-	_touchMoveHandler: function(e) {
+	_touchmoveHandler: function(e) {
 		
 		e.preventDefault();
 
@@ -150,7 +181,7 @@ var Application = Backbone.View.extend({
 
 	},
 
-	_touchEndHandler: function(e) {
+	_touchendHandler: function(e) {
 		
 		this._throwObj.x = null;
 
