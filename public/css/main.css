@@ -19,3 +19,19 @@
     width: 400px;
     height: 300px;
 }
+
+.carousel__item--01 {
+    background-color: #FF0000;
+}
+
+.carousel__item--02 {
+    background-color: #00FF00;   
+}
+
+.carousel__item--03 {
+    background-color: #0000FF;
+}
+
+.carousel__item--04 {   
+    background-color: #FFFF00;
+}
