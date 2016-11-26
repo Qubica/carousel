@@ -4,7 +4,7 @@
 var Carousel = Backbone.View.extend({
 
     _activeIndex: 0,
-    _tweenDuration: 0.3,
+    _tweenDuration: 1,
 
     initialize: function(options) {
 
@@ -76,44 +76,21 @@ var Carousel = Backbone.View.extend({
 
     _updateIndex: function(index) {
 
-        // TODO cleanup
-
         var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
         var progress = this._modulo(this._tweenObj.cur, this._numItems);
 
         var indexProgress;
-
         if(activeIndex < index) {
-            if(activeIndex === 0) {
-                indexProgress = 0.5;
-            }
-            else {
-                indexProgress = -0.5;
-            }
+            indexProgress = (activeIndex === 0) ? 0.5 : -0.5;
         }
         else if(activeIndex === index) {
-            if(progress > this._numItems-1 && index === 0) {
-                indexProgress = -(index-progress)-this._numItems;
-            }
-            else {
-                indexProgress = -(index-progress);
-            }
+            indexProgress = (progress > this._numItems-1 && index === 0) ? -(index-progress)-this._numItems : -(index-progress);
         }
         else if(activeIndex > index) {
-            if(activeIndex === this._numItems-1) {
-                indexProgress = -0.5;
-            }
-            else {
-                indexProgress = 0.5;
-            }
+            indexProgress = (activeIndex === this._numItems-1) ? -0.5 : 0.5;
         }
-
-        indexProgress = indexProgress*2;
+        indexProgress = indexProgress + 0.5;
         
-        // if(this._tweenObj.cur < 0) {
-        //     indexProgress = indexProgress * -1;
-        // }
-
         this.trigger('index:progress', {index:index, progress:indexProgress});
 
     },
