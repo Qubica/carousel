@@ -19,17 +19,15 @@
 
     var Carousel = function(options) {
 
-        this.el = options.el;
-
         this._activeIndex = null;
-        this._tweenDuration = 0.6;
+        this._tweenObj = { cur: 0 }; 
 
+        this.el = options.el;
         this._numItems = options.numItems;
-        this._concurrent = options.concurrent;
 
-        this._tweenObj = {
-            cur: 0
-        }; 
+        this._tweenEase = options.tweenEase || Power0.easeNone;
+        this._tweenDuration = options.tweenDuration || 0.6;
+        this._concurrent = options.concurrent;
 
         this.onUpdateIndexActive = (options.onUpdateIndexActive) ? options.onUpdateIndexActive : function(e){};
         this.onUpdateIndexProgress = (options.onUpdateIndexProgress) ? options.onUpdateIndexProgress : function(e){};
@@ -76,7 +74,8 @@
 
             index = this._short(this._tweenObj.cur, index, this._numItems);
             duration = (isNaN(duration)) ? this._tweenDuration : duration;
-            ease = ease || Power0.easeNone;
+            ease = ease || this._tweenEase;
+
             TweenMax.to(this._tweenObj, duration, {
                 cur: index,
                 onUpdate: this._tweenToUpdateHandler.bind(this),
@@ -134,8 +133,6 @@
                 
             this.onUpdateIndexProgress.call(this, {index:index, progress:indexProgress});
 
-            // this.el.dispatchEvent( new CustomEvent('index:progress', {detail:{ index:index, progress:indexProgress} }) );
-
         };
 
         this._updateIndexConcurrent = function(index) {
@@ -174,8 +171,6 @@
 
             this.onUpdateIndexProgress.call(this, {index:index, progress:indexProgress});
 
-            // this.el.dispatchEvent( new CustomEvent('index:progress', {detail:{ index:index, progress:indexProgress} }) );
-
         };
 
         this._updateActiveIndex = function() {
@@ -184,7 +179,6 @@
             if(activeIndex !== this._activeIndex) {
                 this._activeIndex = Math.min(Math.max(activeIndex, 0), this._numItems);
                 this.onUpdateIndexActive.call(this, {index:this._activeIndex});
-                // this.el.dispatchEvent( new CustomEvent('index:active', {detail:{ index:this._activeIndex} }) );
             }
 
         };
