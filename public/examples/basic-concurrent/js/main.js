@@ -7,7 +7,8 @@ var elCarouselNavigationButtons = document.querySelectorAll('.js-carousel-naviga
 
 var carousel = new Carousel({
 	el: elCarousel,
-	numItems: elCarouselItems.length
+	numItems: elCarouselItems.length,
+	concurrent: true
 });
 
 var slides = [];
