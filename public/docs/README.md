@@ -15,7 +15,12 @@ var carousel = new Carousel({
 var slides = [];
 for(var i=0; i<carouselItems.length; i++) {
     
-    slides.push(new TimelineMax({paused:true}));
+    var timeline = new TimelineMax({paused:true});
+    // ... build your awesome timeline
+    // ... the first half is the in animation, the second half the out animation
+    // ... and yes! each slide can have his own unique awesome animation
+    
+    slides.push(timeline);
 
 }
 
