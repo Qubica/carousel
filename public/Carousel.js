@@ -31,6 +31,9 @@
             cur: 0
         }; 
 
+        this.onUpdateIndexActive = (options.onUpdateIndexActive) ? options.onUpdateIndexActive : function(e){};
+        this.onUpdateIndexProgress = (options.onUpdateIndexProgress) ? options.onUpdateIndexProgress : function(e){};
+
         this.index = function(index) {
 
             index = this._cleanIndex(index);
@@ -128,8 +131,10 @@
                 indexProgress = (activeIndex === this._numItems-1) ? -0.5 : 0.5;
             }
             indexProgress = indexProgress + 0.5;
-            
-            this.el.dispatchEvent( new CustomEvent('index:progress', {detail:{ index:index, progress:indexProgress} }) );
+                
+            this.onUpdateIndexProgress.call(this, {index:index, progress:indexProgress});
+
+            // this.el.dispatchEvent( new CustomEvent('index:progress', {detail:{ index:index, progress:indexProgress} }) );
 
         };
 
@@ -167,7 +172,9 @@
 
             if(isNaN(indexProgress)) indexProgress = 1;
 
-            this.el.dispatchEvent( new CustomEvent('index:progress', {detail:{ index:index, progress:indexProgress} }) );
+            this.onUpdateIndexProgress.call(this, {index:index, progress:indexProgress});
+
+            // this.el.dispatchEvent( new CustomEvent('index:progress', {detail:{ index:index, progress:indexProgress} }) );
 
         };
 
@@ -176,7 +183,8 @@
             var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
             if(activeIndex !== this._activeIndex) {
                 this._activeIndex = Math.min(Math.max(activeIndex, 0), this._numItems);
-                this.el.dispatchEvent( new CustomEvent('index:active', {detail:{ index:this._activeIndex} }) );
+                this.onUpdateIndexActive.call(this, {index:this._activeIndex});
+                // this.el.dispatchEvent( new CustomEvent('index:active', {detail:{ index:this._activeIndex} }) );
             }
 
         };

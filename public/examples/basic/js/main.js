@@ -7,7 +7,9 @@ var elCarouselNavigationButtons = document.querySelectorAll('.js-carousel-naviga
 
 var carousel = new Carousel({
 	el: elCarousel,
-	numItems: elCarouselItems.length
+	numItems: elCarouselItems.length,
+	onUpdateIndexActive: indexActiveHandler,
+	onUpdateIndexProgress: indexProgressHandler
 });
 var slides = [];
 
@@ -17,16 +19,13 @@ setupSlides();
 carousel.index(0);
 
 function setupEventListeners() {
-	
-	carousel.el.addEventListener('index:active', indexActiveHandler);
-	carousel.el.addEventListener('index:progress', indexProgressHandler); 	
-
-	carousel.el.addEventListener('mousedown', mousedownHandler);
+		
+	elCarousel.addEventListener('mousedown', mousedownHandler);
 	document.addEventListener('mousemove', mousemoveHandler);
 	document.addEventListener('mouseup', mouseupHandler);
-	carousel.el.addEventListener('touchstart', touchstartHandler);
-	carousel.el.addEventListener('touchmove', touchmoveHandler);
-	carousel.el.addEventListener('touchend', touchendHandler);
+	elCarousel.addEventListener('touchstart', touchstartHandler);
+	elCarousel.addEventListener('touchmove', touchmoveHandler);
+	elCarousel.addEventListener('touchend', touchendHandler);
 
 	for(var i=0; i<elCarouselNavigationButtons.length; i++) {
 		elCarouselNavigationButtons[i].addEventListener('click', buttonNavigationClickHandler);
@@ -44,7 +43,6 @@ function setupSlides() {
 		timeline.fromTo(elCarouselItems[i], 0.5, {x:0, rotation:0}, {x:-400, rotation:10, ease:Power0.easeNone}, 0.5);
 
 		slides.push(timeline);
-
 	}
 
 }
@@ -52,7 +50,7 @@ function setupSlides() {
 function indexActiveHandler(e) {
 
 	for(var j=0; j<elCarouselNavigationButtons.length; j++) {
-		if(parseInt(elCarouselNavigationButtons[j].dataset.index, 10) === e.detail.index) {
+		if(parseInt(elCarouselNavigationButtons[j].dataset.index, 10) === e.index) {
 			elCarouselNavigationButtons[j].classList.add('is-active');
 		}
 		else {
@@ -64,7 +62,7 @@ function indexActiveHandler(e) {
 
 function indexProgressHandler(e) {
 
-	slides[e.detail.index].progress(e.detail.progress);
+	slides[e.index].progress(e.progress);
 
 }
 
