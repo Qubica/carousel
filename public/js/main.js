@@ -16,8 +16,7 @@ var Application = Backbone.View.extend({
 		_.bindAll(
 			this,
 			'_indexActiveHandler',
-			'_indexProgressHandler',
-			'_keydownHandler'
+			'_indexProgressHandler'
 		);
 
 		// setup carousel
@@ -55,9 +54,7 @@ var Application = Backbone.View.extend({
 	_setupEventListeners: function() {
 
 		this._carousel.el.addEventListener('index:active', this._indexActiveHandler);
-		this._carousel.el.addEventListener('index:progress', this._indexProgressHandler);
-
-		window.addEventListener('keydown', this._keydownHandler);  			
+		this._carousel.el.addEventListener('index:progress', this._indexProgressHandler); 			
 
 	},
 
@@ -70,57 +67,6 @@ var Application = Backbone.View.extend({
 	_indexProgressHandler: function(e) {
 
 		this._slides[e.detail.index].progress(e.detail.progress);
-
-	},
-
-	// input stuff for testing
-
-	_keydownHandler: function(e) {
-
-		if(e.keyCode == 37) {
-			this._carousel.tweenToPreviousIndex(0.5);
-  		}
-  		else if(e.keyCode == 39) {
-			this._carousel.tweenToNextIndex(0.5);
-  		}
-
-  		// 1
-  		if(e.keyCode == 48) {
-			this._carousel.index(0);
-  		}
-  		// 2
-  		if(e.keyCode == 49) {
-			this._carousel.index(1);
-  		}
-  		// 3
-  		if(e.keyCode == 50) {
-			this._carousel.index(2);
-  		}
-  		// 4
-  		if(e.keyCode == 51) {
-			this._carousel.index(3);
-  		}
-
-  		// 5
-  		if(e.keyCode == 52) {
-			this._carousel.index(1.2);
-  		}
-  		// 6
-  		if(e.keyCode == 53) {
-			this._carousel.index(1.4);
-  		}
-  		// 7
-  		if(e.keyCode == 54) {
-			this._carousel.index(1.6);
-  		}
-  		// 8
-  		if(e.keyCode == 55) {
-			this._carousel.index(1.8);
-  		}
-  		// 9
-  		if(e.keyCode == 56) {
-			this._carousel.index(2);
-  		}
 
 	},
 
@@ -147,11 +93,8 @@ var Application = Backbone.View.extend({
 	_mousemoveHandler: function(e) {
 		
 		e.preventDefault();
-
 		if(!this._mousedown) return;
-
 		this._throwObj.x = (e.clientX / 10);
-
         this._throw();
 
 	},
@@ -159,7 +102,6 @@ var Application = Backbone.View.extend({
 	_mouseupHandler: function(e) {
 		
 		this._mousedown = false;
-
 		this._throwObj.x = null;
 
 	},
@@ -174,9 +116,7 @@ var Application = Backbone.View.extend({
 	_touchmoveHandler: function(e) {
 		
 		e.preventDefault();
-
 		this._throwObj.x = (e.originalEvent.touches[0].clientX / 10);
-
         this._throw();
 
 	},
