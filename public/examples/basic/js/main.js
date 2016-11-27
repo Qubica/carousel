@@ -96,15 +96,15 @@ function mouseupHandler(e) {
 
 function touchstartHandler(e) {
 
-	throwObj.x = (e.originalEvent.touches[0].clientX / 10);
-	throwObj.prevX = (e.originalEvent.touches[0].clientX / 10);
+	throwObj.x = (e.changedTouches[0].clientX / 10);
+	throwObj.prevX = (e.changedTouches[0].clientX / 10);
 
 }
 
 function touchmoveHandler(e) {
 	
 	e.preventDefault();
-	throwObj.x = (e.originalEvent.touches[0].clientX / 10);
+	throwObj.x = (e.changedTouches[0].clientX / 10);
     throwIt();
 
 }
