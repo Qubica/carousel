@@ -21,7 +21,7 @@
 
         this.el = options.el;
 
-        this._activeIndex = 0;
+        this._activeIndex = null;
         this._tweenDuration = 0.6;
 
         this._numItems = options.numItems;
@@ -204,7 +204,7 @@
             }
             return index;
 
-        },
+        };
 
         this._short = function(start, end, cap) {
 

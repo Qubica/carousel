@@ -85,3 +85,10 @@ body {
     background: none;
     background-color: #CCC;
 }
+
+.button-navigation.is-active {
+    background-color: #FF0000;
+}
+
+
+

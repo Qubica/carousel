@@ -42,7 +42,14 @@ carousel.index(0);
 
 function indexActiveHandler(e) {
 
-	// console.log('active', e.detail.index);
+	for(var j=0; j<elCarouselNavigationButtons.length; j++) {
+		if(parseInt(elCarouselNavigationButtons[j].dataset.index, 10) === e.detail.index) {
+			elCarouselNavigationButtons[j].classList.add('is-active');
+		}
+		else {
+			elCarouselNavigationButtons[j].classList.remove('is-active');
+		}
+	}
 
 }
 
