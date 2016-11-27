@@ -3,6 +3,7 @@ var mousedown = false;
 
 var elCarousel = document.querySelector('.js-carousel');
 var elCarouselItems = document.querySelectorAll('.js-carousel-item');
+var elCarouselNavigationButtons = document.querySelectorAll('.js-carousel-navigation-button');
 
 var carousel = new Carousel({
 	el: elCarousel,
@@ -25,11 +26,15 @@ carousel.el.addEventListener('index:active', indexActiveHandler);
 carousel.el.addEventListener('index:progress', indexProgressHandler); 	
 
 carousel.el.addEventListener('mousedown', mousedownHandler);
-carousel.el.addEventListener('mousemove', mousemoveHandler);
-carousel.el.addEventListener('mouseup', mouseupHandler);
+document.addEventListener('mousemove', mousemoveHandler);
+document.addEventListener('mouseup', mouseupHandler);
 carousel.el.addEventListener('touchstart', touchstartHandler);
 carousel.el.addEventListener('touchmove', touchmoveHandler);
 carousel.el.addEventListener('touchend', touchendHandler);
+
+for(var j=0; j<elCarouselNavigationButtons.length; j++) {
+	elCarouselNavigationButtons[j].addEventListener('click', buttonNavigationClickHandler);
+}
 
 // show frist
 carousel.index(0);
@@ -103,5 +108,24 @@ function touchendHandler(e) {
 	throwObj.x = null;
 
 }
+
+function buttonNavigationClickHandler(e) {
+
+	var index = e.currentTarget.dataset.index;
+
+	if(index === 'previous') {
+		carousel.tweenToPreviousIndex();
+	}	
+	else if(index === 'next') {
+		carousel.tweenToNextIndex();
+	}
+	else {
+		carousel.tweenToIndex(index);
+	}
+
+}
+
+
+
 
 

@@ -33,6 +33,8 @@
 
         this.index = function(index) {
 
+            index = this._cleanIndex(index);
+
             if(index === undefined || index === null) {
                 return this._index || 0;
             }
@@ -41,6 +43,8 @@
         };
 
         this.tweenToIndex = function(index, duration, ease) {
+
+            index = this._cleanIndex(index);
 
             this._tweenToIndex(index, duration, ease);
 
@@ -189,6 +193,18 @@
             this._update();
 
         };
+
+        this._cleanIndex = function(index) {
+
+            if(index === undefined || index === null) {
+                return index;
+            }
+            else if(isNaN(index)) {
+                index = parseInt(index, 10);
+            }
+            return index;
+
+        },
 
         this._short = function(start, end, cap) {
 

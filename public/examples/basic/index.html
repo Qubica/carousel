@@ -5,12 +5,23 @@
 		<link rel="stylesheet" href="css/main.css">
 	</head>
 	<body>
-		<ul class="carousel js-carousel">
-			<li class="carousel__item carousel__item--01 js-carousel-item">1</li>
-			<li class="carousel__item carousel__item--02 js-carousel-item">2</li>
-			<li class="carousel__item carousel__item--03 js-carousel-item">3</li>
-			<li class="carousel__item carousel__item--04 js-carousel-item">4</li>
-		</ul>
+		<div class="carousel-wrapper">
+			<ul class="carousel js-carousel">
+				<li class="carousel__item carousel__item--01 js-carousel-item">1</li>
+				<li class="carousel__item carousel__item--02 js-carousel-item">2</li>
+				<li class="carousel__item carousel__item--03 js-carousel-item">3</li>
+				<li class="carousel__item carousel__item--04 js-carousel-item">4</li>
+			</ul>
+
+			<ul class="carousel-navigation js-carousel-navigation">
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="previous">prev</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="0">1</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="1">2</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="2">3</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="3">4</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="next">next</button></li>
+			</ul>
+		</div>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 		<script src="http://www.jaybirdsport.com/static/js/greensock/plugins/ThrowPropsPlugin.min.js"></script>

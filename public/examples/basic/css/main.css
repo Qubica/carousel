@@ -8,8 +8,7 @@ body {
     padding: 0;
 }
 
-.carousel {
-    overflow: hidden;
+.carousel-wrapper {
     display: block;
     position: absolute;
     top: 0;
@@ -19,8 +18,16 @@ body {
     padding: 0;
     width: 400px;
     height: 300px;
+}
 
-    border: 1px solid #eee;
+.carousel {
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 400px;
+    height: 300px;
 }
 
 .carousel__item {
@@ -48,4 +55,33 @@ body {
 
 .carousel__item--04 {   
     background-color: #FFFF00;
+}
+
+.carousel-navigation {
+    display: block;
+    position: absolute;
+    top: 308px;
+
+    margin: 0 auto;
+    padding: 0;
+
+    width: 100%;
+
+    font-size: 0;
+    text-align: center;
+}
+
+.carousel-navigation__item {
+    display: inline-block;
+
+    margin: 0 4px;
+}
+
+.button-navigation {
+    margin: 0;
+    padding: 4px;
+    
+    border: none;
+    background: none;
+    background-color: #CCC;
 }
