@@ -34,7 +34,6 @@
         this.index = function(index) {
 
             index = this._cleanIndex(index);
-
             if(index === undefined || index === null) {
                 return this._index || 0;
             }
@@ -45,7 +44,6 @@
         this.tweenToIndex = function(index, duration, ease) {
 
             index = this._cleanIndex(index);
-
             this._tweenToIndex(index, duration, ease);
 
         };
@@ -74,11 +72,8 @@
         this._tweenTo = function(index, duration, ease) {
 
             index = this._short(this._tweenObj.cur, index, this._numItems);
-
             duration = (isNaN(duration)) ? this._tweenDuration : duration;
-
             ease = ease || Power0.easeNone;
-
             TweenMax.to(this._tweenObj, duration, {
                 cur: index,
                 onUpdate: this._tweenToUpdateHandler.bind(this),
@@ -97,7 +92,6 @@
         this._update = function() {
 
             this._index = this._tweenObj.cur;
-
             this._updateIndexes();
             this._updateActiveIndex();
 
@@ -180,7 +174,6 @@
         this._updateActiveIndex = function() {
 
             var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
-
             if(activeIndex !== this._activeIndex) {
                 this._activeIndex = Math.min(Math.max(activeIndex, 0), this._numItems);
                 this.el.dispatchEvent( new CustomEvent('index:active', {detail:{ index:this._activeIndex} }) );
@@ -209,12 +202,10 @@
         this._short = function(start, end, cap) {
 
             var dif = end - start;
-
             dif = dif % cap;
             if (dif !== dif % (cap / 2)) {
                 dif = (dif < 0) ? dif + cap : dif - cap;
             }
-
             return start + dif;
 
         };
