@@ -9,35 +9,45 @@ var carousel = new Carousel({
 	el: elCarousel,
 	numItems: elCarouselItems.length
 });
-
 var slides = [];
-var timeline;
-for(var i=0; i<elCarouselItems.length; i++) {
-	timeline = new TimelineMax({paused:true});
-	timeline.fromTo(elCarouselItems[i], 0.5, {y:100, rotation:-10}, {y:0, rotation:0, ease:Power0.easeNone}, 0);
-	timeline.fromTo(elCarouselItems[i], 0.5, {alpha:0}, {alpha:1, yoyo:true, repeat:1, ease:Power1.easeIn}, 0);
-	timeline.fromTo(elCarouselItems[i], 0.5, {x:0, rotation:0}, {x:-400, rotation:10, ease:Power0.easeNone}, 0.5);
 
-	slides.push(timeline);
-}
+setupEventListeners();
+setupSlides();
 
-carousel.el.addEventListener('index:active', indexActiveHandler);
-carousel.el.addEventListener('index:progress', indexProgressHandler); 	
-
-carousel.el.addEventListener('mousedown', mousedownHandler);
-document.addEventListener('mousemove', mousemoveHandler);
-document.addEventListener('mouseup', mouseupHandler);
-carousel.el.addEventListener('touchstart', touchstartHandler);
-carousel.el.addEventListener('touchmove', touchmoveHandler);
-carousel.el.addEventListener('touchend', touchendHandler);
-
-for(var j=0; j<elCarouselNavigationButtons.length; j++) {
-	elCarouselNavigationButtons[j].addEventListener('click', buttonNavigationClickHandler);
-}
-
-// show frist
 carousel.index(0);
 
+function setupEventListeners() {
+	
+	carousel.el.addEventListener('index:active', indexActiveHandler);
+	carousel.el.addEventListener('index:progress', indexProgressHandler); 	
+
+	carousel.el.addEventListener('mousedown', mousedownHandler);
+	document.addEventListener('mousemove', mousemoveHandler);
+	document.addEventListener('mouseup', mouseupHandler);
+	carousel.el.addEventListener('touchstart', touchstartHandler);
+	carousel.el.addEventListener('touchmove', touchmoveHandler);
+	carousel.el.addEventListener('touchend', touchendHandler);
+
+	for(var i=0; i<elCarouselNavigationButtons.length; i++) {
+		elCarouselNavigationButtons[i].addEventListener('click', buttonNavigationClickHandler);
+	}
+
+}
+
+function setupSlides() {
+
+	var timeline;
+	for(var i=0; i<elCarouselItems.length; i++) {
+		timeline = new TimelineMax({paused:true});
+		timeline.fromTo(elCarouselItems[i], 0.5, {y:100, rotation:-10}, {y:0, rotation:0, ease:Power0.easeNone}, 0);
+		timeline.fromTo(elCarouselItems[i], 0.5, {alpha:0}, {alpha:1, yoyo:true, repeat:1, ease:Power1.easeIn}, 0);
+		timeline.fromTo(elCarouselItems[i], 0.5, {x:0, rotation:0}, {x:-400, rotation:10, ease:Power0.easeNone}, 0.5);
+
+		slides.push(timeline);
+
+	}
+
+}
 
 function indexActiveHandler(e) {
 
@@ -96,15 +106,15 @@ function mouseupHandler(e) {
 
 function touchstartHandler(e) {
 
-	throwObj.x = (e.originalEvent.touches[0].clientX / 10);
-	throwObj.prevX = (e.originalEvent.touches[0].clientX / 10);
+	throwObj.x = (e.changedTouches[0].clientX / 10);
+	throwObj.prevX = (e.changedTouches[0].clientX / 10);
 
 }
 
 function touchmoveHandler(e) {
 	
 	e.preventDefault();
-	throwObj.x = (e.originalEvent.touches[0].clientX / 10);
+	throwObj.x = (e.changedTouches[0].clientX / 10);
     throwIt();
 
 }
