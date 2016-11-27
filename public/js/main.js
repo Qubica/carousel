@@ -15,8 +15,8 @@ var Application = Backbone.View.extend({
 
 		_.bindAll(
 			this,
-			'_indexProgressHandler',
 			'_indexActiveHandler',
+			'_indexProgressHandler',
 			'_keydownHandler'
 		);
 
@@ -42,19 +42,19 @@ var Application = Backbone.View.extend({
 			this._slides.push(timeline);
 		}
 
-		this._carousel.setIndex(0);
+		this._carousel.index(0);
 
 		// event stuff
 
 		this._throwObj = { cur:0 };
-		this._setupEventListener();
+		this._setupEventListeners();
 
 	},
 
-	_setupEventListener: function() {
+	_setupEventListeners: function() {
 
-		this.listenTo(this._carousel, 'index:active', this._indexActiveHandler);
-		this.listenTo(this._carousel, 'index:progress', this._indexProgressHandler);
+		this._carousel.el.addEventListener('index:active', this._indexActiveHandler);
+		this._carousel.el.addEventListener('index:progress', this._indexProgressHandler);
 
 		window.addEventListener('keydown', this._keydownHandler);  			
 
@@ -62,13 +62,15 @@ var Application = Backbone.View.extend({
 
 	_indexActiveHandler: function(e) {
 
+		console.log(e);
 		// console.log('active', e.index);
 
 	},
 
 	_indexProgressHandler: function(e) {
 
-		this._slides[e.index].progress(e.progress);
+		console.log(e);
+		this._slides[e.detail.index].progress(e.detail.progress);
 
 	},
 
@@ -85,40 +87,40 @@ var Application = Backbone.View.extend({
 
   		// 1
   		if(e.keyCode == 48) {
-			this._carousel.setIndex(0);
+			this._carousel.index(0);
   		}
   		// 2
   		if(e.keyCode == 49) {
-			this._carousel.setIndex(1);
+			this._carousel.index(1);
   		}
   		// 3
   		if(e.keyCode == 50) {
-			this._carousel.setIndex(2);
+			this._carousel.index(2);
   		}
   		// 4
   		if(e.keyCode == 51) {
-			this._carousel.setIndex(3);
+			this._carousel.index(3);
   		}
 
   		// 5
   		if(e.keyCode == 52) {
-			this._carousel.setIndex(1.2);
+			this._carousel.index(1.2);
   		}
   		// 6
   		if(e.keyCode == 53) {
-			this._carousel.setIndex(1.4);
+			this._carousel.index(1.4);
   		}
   		// 7
   		if(e.keyCode == 54) {
-			this._carousel.setIndex(1.6);
+			this._carousel.index(1.6);
   		}
   		// 8
   		if(e.keyCode == 55) {
-			this._carousel.setIndex(1.8);
+			this._carousel.index(1.8);
   		}
   		// 9
   		if(e.keyCode == 56) {
-			this._carousel.setIndex(2);
+			this._carousel.index(2);
   		}
 
 	},
