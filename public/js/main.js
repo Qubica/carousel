@@ -42,12 +42,13 @@ var Application = Backbone.View.extend({
 			this._slides.push(timeline);
 		}
 
-		this._carousel.index(0);
-
 		// event stuff
 
 		this._throwObj = { cur:0 };
 		this._setupEventListeners();
+
+		// show frist
+		this._carousel.index(0);
 
 	},
 
@@ -62,14 +63,12 @@ var Application = Backbone.View.extend({
 
 	_indexActiveHandler: function(e) {
 
-		console.log(e);
-		// console.log('active', e.index);
+		// console.log('active', e.detail.index);
 
 	},
 
 	_indexProgressHandler: function(e) {
 
-		console.log(e);
 		this._slides[e.detail.index].progress(e.detail.progress);
 
 	},

@@ -63,7 +63,6 @@
         this._tweenToIndex = function(index, duration, ease) {
 
             index = this._modulo(index, this._numItems);
-
             this._tweenTo(index, duration, ease);
 
         };
