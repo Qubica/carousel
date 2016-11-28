@@ -29,6 +29,7 @@
         this._tweenDuration = options.tweenDuration || 0.6;
         this._concurrent = options.concurrent;
 
+        this.onUpdate = (options.onUpdate) ? options.onUpdate : function(e){};
         this.onUpdateIndexActive = (options.onUpdateIndexActive) ? options.onUpdateIndexActive : function(e){};
         this.onUpdateIndexProgress = (options.onUpdateIndexProgress) ? options.onUpdateIndexProgress : function(e){};
 
@@ -96,6 +97,8 @@
             this._index = this._tweenObj.cur;
             this._updateIndexes();
             this._updateActiveIndex();
+
+            this.onUpdate.call(this);
 
         };
 

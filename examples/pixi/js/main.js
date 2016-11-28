@@ -21,10 +21,10 @@ var carousel = new Carousel({
 	numItems: numItems,
 	concurrent: true,
 	tweenEase: Power4.easeInOut,
+	onUpdate: updateHandler,
 	onUpdateIndexActive: indexActiveHandler,
 	onUpdateIndexProgress: indexProgressHandler
 });
-// var slides = [];
 
 setupEventListeners();
 setupSlides();
@@ -90,6 +90,12 @@ function render() {
 
 }
 
+function updateHandler(e) {
+
+	render();
+
+}
+
 function indexActiveHandler(e) {
 
 	for(var j=0; j<elCarouselNavigationButtons.length; j++) {
@@ -106,8 +112,6 @@ function indexActiveHandler(e) {
 function indexProgressHandler(e) {
 
 	slidesTweens[e.index].progress(e.progress);
-
-	render();
 
 }
 
