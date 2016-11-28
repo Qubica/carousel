@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Carousel</title>
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+		<div class="carousel-wrapper">
+			<canvas class="carousel js-carousel"></canvas>
+
+			<ul class="carousel-navigation js-carousel-navigation">
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="previous">prev</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="0">1</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="1">2</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="2">3</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="3">4</button></li>
+				<li class="carousel-navigation__item js-carousel-navigation-item"><button class="button-navigation js-carousel-navigation-button" data-index="next">next</button></li>
+			</ul>
+		</div>
+
+		<div class="code-wrapper">
+			<a href="https://github.com/Qubica/carousel/blob/master/public/examples/basic/js/main.js" target="_parent">view source</a>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+		<script src="https://www.jaybirdsport.com/static/js/greensock/plugins/ThrowPropsPlugin.min.js"></script>
+		<script src="../../Carousel.js"></script>
+
+		<script src="js/vendor/pixi.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
