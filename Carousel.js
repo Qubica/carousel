@@ -133,6 +133,8 @@
                 indexProgress = (activeIndex === this._numItems-1) ? -0.5 : 0.5;
             }
             indexProgress = indexProgress + 0.5;
+
+            if(indexProgress > 1) indexProgress = indexProgress - 1; // fix overflow
                 
             this.onUpdateIndexProgress.call(this, {index:index, progress:indexProgress});
 
@@ -171,6 +173,8 @@
             indexProgress = (indexProgress+1) / 2; 
 
             if(isNaN(indexProgress)) indexProgress = 1;
+
+            if(indexProgress > 1) indexProgress = indexProgress - 1; // fix overflow
 
             this.onUpdateIndexProgress.call(this, {index:index, progress:indexProgress});
 
