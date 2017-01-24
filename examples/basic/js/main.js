@@ -48,7 +48,7 @@ function setupSlides() {
 }
 
 function indexActiveHandler(e) {
-
+	
 	for(var j=0; j<elCarouselNavigationButtons.length; j++) {
 		if(parseInt(elCarouselNavigationButtons[j].dataset.index, 10) === e.index) {
 			elCarouselNavigationButtons[j].classList.add('is-active');

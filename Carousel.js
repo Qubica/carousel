@@ -1,3 +1,7 @@
+// version 0.1.0
+// 2017, Peter Coolen
+// https://github.com/Qubica/carousel
+
 (function(root, factory) {
 
     // AMD
@@ -117,6 +121,11 @@
 
         this._updateIndex = function(index) {
 
+            if(this._numItems === 1) {
+                this.onUpdateIndexProgress.call(this, {index:0, progress:0.5});
+                return;
+            }
+            
             // TODO: improve
 
             var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
@@ -133,8 +142,6 @@
                 indexProgress = (activeIndex === this._numItems-1) ? -0.5 : 0.5;
             }
             indexProgress = indexProgress + 0.5;
-
-            if(indexProgress > 1) indexProgress = indexProgress - 1; // fix overflow
                 
             this.onUpdateIndexProgress.call(this, {index:index, progress:indexProgress});
 
@@ -142,6 +149,11 @@
 
         this._updateIndexConcurrent = function(index) {
 
+            if(this._numItems === 1) {
+                this.onUpdateIndexProgress.call(this, {index:0, progress:0.5});
+                return;
+            }
+            
             // TODO: improve
 
             var floorIndex = this._modulo(Math.floor(this._tweenObj.cur), this._numItems);
@@ -159,7 +171,12 @@
             }
             else if(index >= this._numItems-1) {
                 if(progress <= 1){
-                    indexProgress = progress+this._numItems;
+                    if(this._numItems <= 2) { // when it's a very small carousel
+                        indexProgress = progress;
+                    }
+                    else {
+                        indexProgress = progress+this._numItems;
+                    }
                 }
                 else if(progress >= this._numItems-2) {
                     indexProgress = progress;
@@ -174,13 +191,16 @@
 
             if(isNaN(indexProgress)) indexProgress = 1;
 
-            if(indexProgress > 1) indexProgress = indexProgress - 1; // fix overflow
-
             this.onUpdateIndexProgress.call(this, {index:index, progress:indexProgress});
 
         };
 
         this._updateActiveIndex = function() {
+
+            if(this._numItems === 1) {
+                this.onUpdateIndexActive.call(this, {index:0});
+                return;
+            }
 
             var activeIndex = this._modulo(Math.round(this._tweenObj.cur), this._numItems);
             if(activeIndex !== this._activeIndex) {
